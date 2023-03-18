@@ -19,7 +19,7 @@
             <td>{{flights.departureTime}}</td>
             <td>{{flights.seatsAvailable}}</td>
           <td class="actions">
-            <button mat-button color="primary"  (click)="openCustomerDialog()">R {{flights.seatCost}}</button>
+            <button mat-button color="primary"  (click)="openCustomerDialog(flights)">R {{flights.seatCost}}</button>
           </td>
         </tr>
       </tbody>

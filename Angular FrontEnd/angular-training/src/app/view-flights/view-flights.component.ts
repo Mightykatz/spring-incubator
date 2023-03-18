@@ -46,10 +46,11 @@ export class ViewFlightsComponent {
     })
   }
 
-  openCustomerDialog(){
+  openCustomerDialog(data:any){
     this.dialog.open(AddCustomerComponent,{
         width:'600px',
         height:'450px',
+        data:data
     })
     //console.log("this data should be empty for now",data)
   }
