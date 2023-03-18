@@ -35,6 +35,6 @@ export class AddCustomerComponent {
       phoneNumber : ['', Validators.required],
 
     })
-    console.log(this.customerForm.)
+    
   }
 }
