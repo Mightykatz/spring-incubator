@@ -19,6 +19,7 @@ import { ViewFlightsComponent } from './view-flights/view-flights.component';
 import { AddCustomerComponent } from './add-customer/add-customer.component';
 import { BookingsComponent } from './bookings/bookings.component';
 import {HttpClientModule} from '@angular/common/http';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import {HttpClientModule} from '@angular/common/http';
     MatDialogModule,
     MatInputModule,
     HttpClientModule,
+    MatSnackBarModule,
     RouterModule.forRoot([
       {path: '',component: SideBarComponent,pathMatch: 'full'},
       {path: 'Flights',component:ViewFlightsComponent},

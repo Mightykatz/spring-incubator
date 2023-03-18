@@ -43,7 +43,6 @@ export class ViewFlightsComponent {
   constructor(public dialog:MatDialog, private flightservice: FlightService){
     this.flightservice.getFlights().subscribe(flights =>{
       this.flightsAvailable = flights
-      console.log('these are the glights',flights)
     })
   }
 

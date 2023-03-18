@@ -3,6 +3,12 @@
 <div mat-dialog-content>
     <form [formGroup]="customerForm">
         <mat-form-field appearance="fill">
+            <mat-label>User Name</mat-label>
+            <input type="text" formControlName="username" matInput>
+        </mat-form-field>
+        <br>
+
+        <mat-form-field appearance="fill">
             <mat-label>First Name</mat-label>
             <input type="text" formControlName="firstName" matInput>
         </mat-form-field>
@@ -35,6 +41,6 @@
 </div>
 
 <div mat-dialog-actions [align]="'end'">
-    <button mat-raised-button color="accent">Continue</button>
+    <button mat-raised-button color="accent"  (click)="customerCredentials()">Continue</button>
     <button mat-raised-button color="warn" style="margin-right: 10px;" mat-dialog-close="">Close</button>
 </div>

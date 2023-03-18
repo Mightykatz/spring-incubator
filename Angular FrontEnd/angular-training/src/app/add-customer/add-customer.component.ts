@@ -19,15 +19,28 @@ export class AddCustomerComponent {
   customerForm !: FormGroup;
   constructor(private formBuilder: FormBuilder,private customerservice:CustomerService){}
 
-  createCustomer(customer: Customer){
-    this.customerservice.createCustomer(customer).subscribe(details =>{
-      console.log("Customer details fot the flight are as" ,details)
-    })
+  customerCredentials() {
+    const customer: Customer = {
+      username:this.customerForm.get('username')?.value,
+      firstName: this.customerForm.get('firstName')?.value,
+      lastName: this.customerForm.get('lastName')?.value,
+      passportNumber: this.customerForm.get('passportNumber')?.value,
+      email: this.customerForm.get('email')?.value,
+      phoneNumber: this.customerForm.get('phoneNumber')?.value
+    };
+  
+    console.log('Customer details for the flight are:', customer);
+  
+    this.customerservice.createCustomer(customer).subscribe(details => {
+      console.log('Subscribed details :', details);
+
+    });
   }
 
   ngOnInit():void{
 
      this.customerForm = this.formBuilder.group({
+      username : ['',Validators.required],
       firstName : ['', Validators.required],
       lastName : ['', Validators.required],
       passportNumber : ['', Validators.required],
