@@ -1,0 +1,28 @@
+<div id="view" class="table-container" >
+    
+    <table class="table" >
+      <thead>
+        <tr>
+          <th>flightNumber</th>
+          <th>origin</th>
+          <th>destination</th>
+          <th>departureTime</th>
+          <th>seatsAvailable</th>
+          <th>seats cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let flights of flightsAvailable">
+            <td>{{flights.flightNumber}}</td>
+            <td>{{flights.origin}}</td>
+            <td>{{flights.destination}}</td>
+            <td>{{flights.departureTime}}</td>
+            <td>{{flights.seatsAvailable}}</td>
+          <td class="actions">
+            <button mat-button color="primary"  (click)="openCustomerDialog()">R {{flights.seatCost}}</button>
+          </td>
+        </tr>
+      </tbody>
+      
+    </table>
+  </div>

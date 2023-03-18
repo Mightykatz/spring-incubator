@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("bookings")
+@CrossOrigin(origins = {"http://localhost:4200"}, methods = {RequestMethod.GET, RequestMethod.POST})
 public class BookingController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(BookingController.class);

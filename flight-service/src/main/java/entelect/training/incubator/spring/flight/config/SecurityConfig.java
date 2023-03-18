@@ -1,11 +1,15 @@
 package entelect.training.incubator.spring.flight.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -33,11 +37,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable() // !!! Disclaimer: NEVER DISABLE CSRF IN PRODUCTION !!!
+        http.cors()
+                .and()
+                .csrf()
+                .disable() // !!! Disclaimer: NEVER DISABLE CSRF IN PRODUCTION !!!
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/flights/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/flights/**").permitAll()
-//                .anyRequest().denyAll()
+                .anyRequest().permitAll()
                 .and()
                 .httpBasic();
     }
