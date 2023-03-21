@@ -49,7 +49,13 @@ export class AddCustomerComponent {
       phoneNumber: this.customerForm.get('phoneNumber')?.value
     };
 
-  
+    this.createCustomerBooking(customer)
+    
+  }
+
+
+  createCustomerBooking(customer : Customer){
+
     this.customerservice.createCustomer(customer).subscribe(details => {
       console.log('Subscribed customer  details :', details);
       

@@ -38,14 +38,14 @@ const ELEMENT_DATA: BookingSummary[] = [
 })
 export class BookingsComponent implements OnInit {
 
-   myELEMENTDATA: BookingsEntries[] = []
+  myELEMENTDATA: BookingSummary[] = []
 
   mycustomerID !: CustomerID
 
   constructor(private route: ActivatedRoute, private bookingService : BookingService){}
 
-  //displayedColumns: string[] = ['firstName', 'passport', 'destination','cost','referenceNumber'];
-  displayedColumns: string[] = ['customerId', 'flightId', 'referenceNumber'];
+  displayedColumns: string[] = ['firstName', 'passport', 'destination','cost','referenceNumber'];
+  //displayedColumns: string[] = ['customerId', 'flightId', 'referenceNumber'];
   dataSource = this.myELEMENTDATA;
   
   
@@ -68,8 +68,17 @@ export class BookingsComponent implements OnInit {
       }
 
       this.bookingService.getFlightReferenceNumber(mycustID).subscribe(bookedDetails =>{
-        console.log("final bookings ", bookedDetails)
-        this.dataSource = bookedDetails
+        console.log("final bookings ", bookedDetails[0].customerId)
+
+        const newElementData : BookingSummary[] = [{
+          firstName : this.customerDetails.firstName,
+          passport : this.customerDetails.passportNumber,
+          destination : this.flightdetails.destination,
+          cost : this.flightdetails.seatCost,
+          referenceNumber : bookedDetails[0].referenceNumber
+        }]
+        
+        this.dataSource = newElementData
       })
 
     })
