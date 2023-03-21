@@ -67,19 +67,30 @@ export class BookingsComponent implements OnInit {
         customerID:this.customerDetails.id
       }
 
-      this.bookingService.getFlightReferenceNumber(mycustID).subscribe(bookedDetails =>{
-        console.log("final bookings ", bookedDetails[0].customerId)
-
-        const newElementData : BookingSummary[] = [{
-          firstName : this.customerDetails.firstName,
-          passport : this.customerDetails.passportNumber,
-          destination : this.flightdetails.destination,
-          cost : this.flightdetails.seatCost,
-          referenceNumber : bookedDetails[0].referenceNumber
-        }]
-        
-        this.dataSource = newElementData
-      })
+      this.bookingService.getFlightReferenceNumber(mycustID).subscribe({
+        next: (bookedDetails: any[]) => {
+          console.log("final bookings ", bookedDetails);
+      
+          const newElementData: BookingSummary[] = [];
+      
+          bookedDetails.forEach((_element: any) => {
+            const newElement: BookingSummary = {
+              firstName: this.customerDetails.firstName,
+              passport: this.customerDetails.passportNumber,
+              destination: this.flightdetails.destination,
+              cost: this.flightdetails.seatCost,
+              referenceNumber: _element.referenceNumber,
+            };
+            newElementData.push(newElement);
+          });
+      
+          this.dataSource = newElementData;
+        },
+        error: (err: any) => {
+          console.error(err);
+          // handle the error as needed
+        }
+      });      
 
     })
   }
