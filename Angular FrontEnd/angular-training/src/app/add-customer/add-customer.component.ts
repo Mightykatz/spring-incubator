@@ -60,7 +60,7 @@ export class AddCustomerComponent {
       console.log('Subscribed customer  details :', details);
       
       location.reload;
-      this.openSnackBar("successfully booked a flight with id! ", "Ok");
+      this.openSnackBar("successfully booked a flight", "Ok");
 
       this.storeCustomer = details;
 

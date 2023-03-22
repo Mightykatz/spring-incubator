@@ -1,0 +1,40 @@
+
+<mat-toolbar color="accent" id="toolbar">
+    <mat-toolbar-row id="logo">
+        <h1><b>Molo Air</b></h1>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    
+    <mat-sidenav-container>
+      <mat-sidenav #sidenav opened="true" mode="side">
+        <mat-nav-list id="navItems">
+          <a mat-list-item><mat-icon>dashboard</mat-icon> Dashboard</a>
+          <a class="nav-link" [routerLink]="['/Flights']" [routerLinkActive]="['link-active']" mat-list-item><mat-icon>booking</mat-icon> Flight</a>
+          <a class="nav-link" [routerLink]="['/Bookings']" [routerLinkActive]="['link-active']" mat-list-item><mat-icon>phone</mat-icon> Bookings</a>
+          <a mat-list-item><mat-icon>About</mat-icon> About</a>
+          <a mat-list-item><mat-icon>login</mat-icon> Login</a>
+          <a mat-list-item><mat-icon>R</mat-icon> Registration</a>
+          <a mat-list-item><mat-icon>feedback</mat-icon> Feedback</a>
+        </mat-nav-list>
+      </mat-sidenav>
+      <mat-sidenav-content>
+        <div style="height:100vh;">
+          <router-outlet></router-outlet>
+        </div>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+    
+    <footer class="text-center text-white fixed-bottom" style="background-color: #21081a;">
+      <!-- Grid container -->
+      <div class="container p-4" ></div>
+      <!-- Grid container -->
+      
+      <!-- Copyright -->
+      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2023 Copyright:
+        
+      </div>
+      <!-- Copyright -->
+    </footer>
+  
+  

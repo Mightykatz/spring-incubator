@@ -15,4 +15,5 @@ public interface BookingRepository extends CrudRepository<Booking, Integer> {
     Optional<List<Booking>> getBookingsByCustomerId(@Param("customerID") Integer customerID);
 
     Optional<List<Booking>> getBookingsByReferenceNumber(@Param("referenceNumber") String referenceNumber);
+
 }

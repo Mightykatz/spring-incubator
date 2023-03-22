@@ -10,4 +10,5 @@ public class SearchByProperty {
     public Optional<Integer> customerID;
 
     public Optional<String> referenceNumber;
+
 }

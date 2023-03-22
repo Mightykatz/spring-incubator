@@ -50,7 +50,6 @@ public class BookingService {
         }
         else{
             bookingsFound = bookingRepository.getBookingsByReferenceNumber(searchByProperty.referenceNumber.get());
-
         }
         bookingList = bookingsFound.get();
         return bookingList;

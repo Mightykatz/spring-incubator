@@ -20,6 +20,7 @@ import { AddCustomerComponent } from './add-customer/add-customer.component';
 import { BookingsComponent } from './bookings/bookings.component';
 import {HttpClientModule} from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { StyledNavigationComponent } from './styled-navigation/styled-navigation.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     SideBarComponent,
     ViewFlightsComponent,
     AddCustomerComponent,
-    BookingsComponent
+    BookingsComponent,
+    StyledNavigationComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +49,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     HttpClientModule,
     MatSnackBarModule,
     RouterModule.forRoot([
-      {path: '',component: SideBarComponent,pathMatch: 'full'},
+      //{path: '',component: SideBarComponent,pathMatch: 'full'},
       {path: 'Flights',component:ViewFlightsComponent},
       {path: 'Customer',component:AddCustomerComponent},
       {path: 'Bookings',component:BookingsComponent}
