@@ -27,7 +27,7 @@ public class RewardsEndpoint {
     @ResponsePayload
     public CaptureRewardsResponse captureRewards(@RequestPayload CaptureRewardsRequest request) {
         final BigDecimal balance = this.rewardsService.updateBalance(request.getPassportNumber(), request.getAmount());
-    
+
         final CaptureRewardsResponse response = new CaptureRewardsResponse();
         response.setBalance(balance);
         return response;
