@@ -2,10 +2,7 @@ package entelect.training.incubator.service;
 
 import com.google.gson.Gson;
 import entelect.training.incubator.controller.BookingController;
-import entelect.training.incubator.model.Booking;
-import entelect.training.incubator.model.Customer;
-import entelect.training.incubator.model.Flight;
-import entelect.training.incubator.model.SearchByProperty;
+import entelect.training.incubator.model.*;
 import entelect.training.incubator.repository.BookingRepository;
 import net.bytebuddy.utility.RandomString;
 import org.slf4j.Logger;
@@ -40,7 +37,7 @@ public class BookingService {
 
     public Booking createBooking(Booking booking){
         booking.setReferenceNumber(RandomString.make(6).toUpperCase());
-        /*RestTemplate restTemplate = new RestTemplate();
+        RestTemplate restTemplate = new RestTemplate();
         String customerEndPoint = "http://localhost:8201/customers/" +  booking.getCustomerId();
         String flightEndPoint = "http://localhost:8202/flights/" + booking.getFlightId();
         Customer customer = restTemplate.getForObject(customerEndPoint, Customer.class);
@@ -49,10 +46,25 @@ public class BookingService {
         if(customer == null || flight==null){
             LOGGER.trace("The flight or the customer is not valid");
             return null;
-        }*/
-        sendMessage("inbound.topic","jhsdkjsdhksdh ");
+        }
+
+        NotificationObject notification = Notification(customer, flight);
+        String phoneNumber = notification.getPhoneNumber();
+        String message = notification.getMessage();
+
+
+        Gson gson = new Gson();
+        String noticationJSON = gson.toJson(notification);
+
+        sendMessage("inbound",noticationJSON);
         return bookingRepository.save(booking);
 
+    }
+
+    public NotificationObject Notification(Customer customer, Flight flight) {
+        String phoneNumber = customer.getPhoneNumber();
+        String message = "Molo Air: Confirming flight " + flight.getFlightNumber() + " booked for " + customer.getFirstName() + " " + customer.getLastName() + " on " + flight.getDepartureTime();
+        return new NotificationObject(phoneNumber, message);
     }
 
     public Booking getBookingID(Integer id){
@@ -76,14 +88,14 @@ public class BookingService {
 
     @Autowired
     JmsTemplate jmsTemplate;
-    public void sendMessage(final String queueName, final String messagee) {
-        //Map map = new Gson().fromJson(message, Map.class);
+    public void sendMessage(final String queueName, final String Inputmessage) {
+        //Map map = new Gson().fromJson(Inputmessage, Map.class);
         //final String textMessage = "Hello" + map.get("name");
-        System.out.println("Sending message " + messagee + "to queue - " + queueName);
+        System.out.println("Sending message " + Inputmessage + "to queue - " + queueName);
         jmsTemplate.send(queueName, new MessageCreator() {
 
             public Message createMessage(Session session) throws JMSException {
-                TextMessage message = session.createTextMessage(messagee);
+                TextMessage message = session.createTextMessage(Inputmessage);
                 return message;
             }
         });

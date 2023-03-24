@@ -20,9 +20,10 @@ public class MoloCellSmsClient implements SmsClient {
     @Override
     public void sendSms(String phoneNumber, String message) {
         System.out.println(String.format("Sending SMS, destination='{}', '{}'", phoneNumber, message));
+
     }
 
-    @JmsListener(destination = "inbound.topic")
+    @JmsListener(destination = "inbound")
     @SendTo("outbound.topic")
     public String receiveMessageFromTopic(final Message jsonMessage) throws JMSException {
         String messageData = null;
@@ -31,8 +32,13 @@ public class MoloCellSmsClient implements SmsClient {
         if(jsonMessage instanceof TextMessage) {
             TextMessage textMessage = (TextMessage)jsonMessage;
             messageData = textMessage.getText();
-            //Map map = new Gson().fromJson(messageData, Map.class);
-            response  = "Hello " /*+ map.get("name")*/;
+            Map map = new Gson().fromJson(messageData, Map.class);
+            response  = messageData;
+
+            String cellNumber = ""+map.get("phoneNumber");
+            String messagee = ""+map.get("message");
+
+            sendSms(cellNumber,messagee);
         }
         return response;
     }
