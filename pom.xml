@@ -21,7 +21,7 @@
     <modules>
         <module>flight-service</module>
         <module>customer-service</module>
-        <module>notification-service</module>
+
         <module>loyalty-service</module>
         <module>booking-service</module>
     </modules>
