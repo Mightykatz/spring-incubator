@@ -38,6 +38,9 @@ public class MoloCellSmsClient implements SmsClient {
             String cellNumber = ""+map.get("phoneNumber");
             String messagee = ""+map.get("message");
 
+            Gson gson = new Gson();
+            String sentmessageObject = gson.toJson(messageData);
+            System.out.println("Successfully sent the message as the following object" + sentmessageObject);
             sendSms(cellNumber,messagee);
         }
         return response;
