@@ -1,7 +1,11 @@
 package entelect.training.incubator.config;
 
+import org.apache.activemq.ActiveMQConnectionFactory;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -25,6 +29,34 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     //        auth.jdbcAuthentication().dataSource(securityDataSource);
     //    }
+
+    String BROKER_URL = "tcp://localhost:61616";
+    String BROKER_USERNAME = "admin";
+    String BROKER_PASSWORD = "admin";
+
+    @Bean
+    public ActiveMQConnectionFactory connectionFactory(){
+        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
+        connectionFactory.setBrokerURL(BROKER_URL);
+        connectionFactory.setPassword(BROKER_USERNAME);
+        connectionFactory.setUserName(BROKER_PASSWORD);
+        return connectionFactory;
+    }
+
+    @Bean
+    public JmsTemplate jmsTemplate(){
+        JmsTemplate template = new JmsTemplate();
+        template.setConnectionFactory(connectionFactory());
+        return template;
+    }
+
+    @Bean
+    public DefaultJmsListenerContainerFactory jmsListenerContainerFactory() {
+        DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
+        factory.setConnectionFactory(connectionFactory());
+        factory.setConcurrency("1-1");
+        return factory;
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
